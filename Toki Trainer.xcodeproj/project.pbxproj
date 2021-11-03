@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E2811172733027F0063DC78 /* TokiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811142733027F0063DC78 /* TokiDictionary.swift */; };
+		7E2811182733027F0063DC78 /* TokiJSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811152733027F0063DC78 /* TokiJSONLoader.swift */; };
+		7E2811192733027F0063DC78 /* TokiPartOfSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811162733027F0063DC78 /* TokiPartOfSpeech.swift */; };
+		7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111A273302860063DC78 /* toki-partsofspeech.json */; };
+		7E28111D273302860063DC78 /* toki-dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111B273302860063DC78 /* toki-dictionary.json */; };
+		7E281120273303220063DC78 /* TokiPartsOfSpeechProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E28111F273303220063DC78 /* TokiPartsOfSpeechProvider.swift */; };
 		7E943A21273211C200E7DDF4 /* Toki_TrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A20273211C200E7DDF4 /* Toki_TrainerApp.swift */; };
 		7E943A23273211C200E7DDF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A22273211C200E7DDF4 /* ContentView.swift */; };
 		7E943A25273211C300E7DDF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E943A24273211C300E7DDF4 /* Assets.xcassets */; };
@@ -16,6 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E2811142733027F0063DC78 /* TokiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokiDictionary.swift; sourceTree = "<group>"; };
+		7E2811152733027F0063DC78 /* TokiJSONLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokiJSONLoader.swift; sourceTree = "<group>"; };
+		7E2811162733027F0063DC78 /* TokiPartOfSpeech.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokiPartOfSpeech.swift; sourceTree = "<group>"; };
+		7E28111A273302860063DC78 /* toki-partsofspeech.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-partsofspeech.json"; sourceTree = "<group>"; };
+		7E28111B273302860063DC78 /* toki-dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-dictionary.json"; sourceTree = "<group>"; };
+		7E28111F273303220063DC78 /* TokiPartsOfSpeechProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokiPartsOfSpeechProvider.swift; sourceTree = "<group>"; };
 		7E943A1D273211C200E7DDF4 /* Toki Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Toki Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E943A20273211C200E7DDF4 /* Toki_TrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toki_TrainerApp.swift; sourceTree = "<group>"; };
 		7E943A22273211C200E7DDF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +48,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E281111273302420063DC78 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7E2811142733027F0063DC78 /* TokiDictionary.swift */,
+				7E2811152733027F0063DC78 /* TokiJSONLoader.swift */,
+				7E2811162733027F0063DC78 /* TokiPartOfSpeech.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7E2811122733024F0063DC78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7E943A20273211C200E7DDF4 /* Toki_TrainerApp.swift */,
+				7E943A22273211C200E7DDF4 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7E281113273302530063DC78 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				7E28111F273303220063DC78 /* TokiPartsOfSpeechProvider.swift */,
+			);
+			path = States;
+			sourceTree = "<group>";
+		};
+		7E28111E273302890063DC78 /* JSON Data */ = {
+			isa = PBXGroup;
+			children = (
+				7E28111B273302860063DC78 /* toki-dictionary.json */,
+				7E28111A273302860063DC78 /* toki-partsofspeech.json */,
+			);
+			path = "JSON Data";
+			sourceTree = "<group>";
+		};
 		7E943A14273211C200E7DDF4 = {
 			isa = PBXGroup;
 			children = (
@@ -55,8 +103,10 @@
 		7E943A1F273211C200E7DDF4 /* Toki Trainer */ = {
 			isa = PBXGroup;
 			children = (
-				7E943A20273211C200E7DDF4 /* Toki_TrainerApp.swift */,
-				7E943A22273211C200E7DDF4 /* ContentView.swift */,
+				7E28111E273302890063DC78 /* JSON Data */,
+				7E281113273302530063DC78 /* States */,
+				7E2811122733024F0063DC78 /* Views */,
+				7E281111273302420063DC78 /* Models */,
 				7E943A24273211C300E7DDF4 /* Assets.xcassets */,
 				7E943A29273211C300E7DDF4 /* Persistence.swift */,
 				7E943A2B273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld */,
@@ -133,6 +183,8 @@
 			files = (
 				7E943A28273211C300E7DDF4 /* Preview Assets.xcassets in Resources */,
 				7E943A25273211C300E7DDF4 /* Assets.xcassets in Resources */,
+				7E28111D273302860063DC78 /* toki-dictionary.json in Resources */,
+				7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +197,12 @@
 			files = (
 				7E943A2D273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld in Sources */,
 				7E943A2A273211C300E7DDF4 /* Persistence.swift in Sources */,
+				7E2811192733027F0063DC78 /* TokiPartOfSpeech.swift in Sources */,
+				7E281120273303220063DC78 /* TokiPartsOfSpeechProvider.swift in Sources */,
 				7E943A23273211C200E7DDF4 /* ContentView.swift in Sources */,
+				7E2811172733027F0063DC78 /* TokiDictionary.swift in Sources */,
 				7E943A21273211C200E7DDF4 /* Toki_TrainerApp.swift in Sources */,
+				7E2811182733027F0063DC78 /* TokiJSONLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
