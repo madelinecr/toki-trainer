@@ -20,7 +20,13 @@ struct ContentView: View {
                 ForEach(entry.definitions, id: \.pos) { definition in
                     HStack(alignment: .top) {
                         Text(definition.pos)
+                            .frame(width: 60, height: 22, alignment: .center)
+                            .background(Color(K.posColors[definition.pos]!))
+                            .cornerRadius(5.0)
+                            .padding(4)
                         Text(definition.definition)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(4)
                     }
                 }}
 
