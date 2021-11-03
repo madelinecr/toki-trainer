@@ -13,27 +13,49 @@ struct ContentView: View {
     @ObservedObject var jsonLoader = TokiJSONLoader()
     
     var body: some View {
-        List(jsonLoader.dictionary, id: \.word) { entry in
-            VStack(alignment: .leading) {
-                Text(entry.word)
-                    .font(.title)
-                ForEach(entry.definitions, id: \.pos) { definition in
-                    HStack(alignment: .top) {
-                        Text(definition.pos)
-                            .frame(width: 60, height: 22, alignment: .center)
-                            .background(Color(K.posColors[definition.pos]!))
-                            .cornerRadius(5.0)
-                            .padding(4)
-                        Text(definition.definition)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(4)
+        VStack {
+            TextField("Enter Toki Pona Word or Phrase", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                .multilineTextAlignment(.center)
+                .padding(8)
+            List(jsonLoader.dictionary, id: \.word) { entry in
+                VStack(alignment: .leading) {
+                    Text(entry.word)
+                        .font(.title)
+                    ForEach(entry.definitions, id: \.pos) { definition in
+                        HStack(alignment: .top) {
+                            Button(action: openPartsOfSpeechView) {
+                                Text(definition.pos)
+                                    .frame(width: 45, height: 22, alignment: .center)
+                                    .foregroundColor(.black)
+                                    .background(Color(K.posColors[definition.pos]!))
+                                    .cornerRadius(5.0)
+                                    .padding(4)
+                            }
+                            Text(definition.definition)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(4)
+                        }
                     }
-                }}
-
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                HStack() {
+                    Button(action: openPartsOfSpeechView) {
+                        Text("Parts of Speech")
+                    }
+                    .padding(8)
+                }
+                .frame(maxWidth: .infinity)
+                .background(.thinMaterial)
+            }
+            .onAppear {
+                self.jsonLoader.loadDictionary()
+            }
         }
-        .onAppear {
-            self.jsonLoader.loadDictionary()
-        }
+}
+    
+    func openPartsOfSpeechView() {
+        print("Button pressed.")
     }
 }
 
