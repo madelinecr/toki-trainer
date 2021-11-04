@@ -8,22 +8,30 @@
 import SwiftUI
 import CoreData
 
+extension String: Identifiable {
+    public var id: String { self }
+}
+
 struct ContentView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     
-    @ObservedObject var jsonLoader = TokiJSONLoader()
+    @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
+    @State private var selectedPartOfSpeech: String? = nil
     
     var body: some View {
         VStack {
             TextField("Enter Toki Pona Word or Phrase", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                 .multilineTextAlignment(.center)
                 .padding(8)
-            List(jsonLoader.dictionary, id: \.word) { entry in
+            List(tokiDictViewModel.dictionary, id: \.word) { entry in
                 VStack(alignment: .leading) {
                     Text(entry.word)
                         .font(.title)
                     ForEach(entry.definitions, id: \.pos) { definition in
                         HStack(alignment: .top) {
-                            Button(action: openPartsOfSpeechView) {
+                            Button(action: {
+                                self.selectedPartOfSpeech = String(definition.pos)
+                            }) {
                                 Text(definition.pos)
                                     .frame(width: 45, height: 22, alignment: .center)
                                     .foregroundColor(.black)
@@ -31,6 +39,7 @@ struct ContentView: View {
                                     .cornerRadius(5.0)
                                     .padding(4)
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                             Text(definition.definition)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(4)
@@ -40,19 +49,19 @@ struct ContentView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 HStack() {
-                    Button(action: openPartsOfSpeechView) {
-                        Text("Parts of Speech")
+                    Button("Parts of Speech") {
+                        self.selectedPartOfSpeech = ""
                     }
                     .padding(8)
                 }
                 .frame(maxWidth: .infinity)
                 .background(.thinMaterial)
             }
-            .onAppear {
-                self.jsonLoader.loadDictionary()
+            .sheet(item: $selectedPartOfSpeech) { selectedPOS in
+                PartsOfSpeechView(selectedPartOfSpeech: selectedPOS, tokiDictViewModel: self.tokiDictViewModel)
             }
         }
-}
+    }
     
     func openPartsOfSpeechView() {
         print("Button pressed.")

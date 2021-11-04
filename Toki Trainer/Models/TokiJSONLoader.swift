@@ -8,28 +8,26 @@
 import Foundation
 
 class TokiJSONLoader: ObservableObject {
-    @Published var dictionary: [TokiDictEntry] = []
-    @Published var partsOfSpeech: [TokiPartOfSpeech] = []
     
-    func loadDictionary() {
+    func loadDictionary() -> [TokiDictEntry]? {
         let jsonData = loadJSON("toki-dictionary")
         do {
             let decodedData = try JSONDecoder().decode([TokiDictEntry].self, from: jsonData!)
-            dictionary = decodedData
+            return decodedData
         } catch {
             print("Decode error: \(error)")
-            return
+            return nil
         }
     }
     
-    func loadPOS() {
+    func loadPOS() -> [TokiPartOfSpeech]? {
         let jsonData = loadJSON("toki-partsofspeech")
         do {
             let decodedData = try JSONDecoder().decode([TokiPartOfSpeech].self, from: jsonData!)
-            partsOfSpeech = decodedData
+            return decodedData
         } catch {
             print("Decode error: \(error)")
-            return
+            return nil
         }
     }
     
