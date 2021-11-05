@@ -17,12 +17,18 @@ struct ContentView: View {
     
     @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
     @State private var selectedPartOfSpeech: String? = nil
+    @State private var tokiInput: String = ""
     
     var body: some View {
         VStack {
-            TextField("Enter Toki Pona Word or Phrase", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+            TextField("Enter Toki Pona Word or Phrase", text: $tokiInput)
                 .multilineTextAlignment(.center)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
                 .padding(8)
+                .onSubmit {
+                    tokiDictViewModel.filterDictionary(tokiInput)
+                }
             List(tokiDictViewModel.dictionary, id: \.word) { entry in
                 VStack(alignment: .leading) {
                     Text(entry.word)
