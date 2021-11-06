@@ -7,8 +7,8 @@
 
 import Foundation
 
-class TokiDictionaryViewModel: ObservableObject
-{
+class TokiDictionaryViewModel: ObservableObject {
+    
     let jsonLoader: TokiJSONLoader = TokiJSONLoader()
     
     private var fullDictionary: [TokiDictEntry] = []

@@ -9,27 +9,64 @@ import SwiftUI
 
 struct FlashCardView: View {
     
+    //@ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
+    @ObservedObject var flashCardsViewModel = FlashCardsViewModel()
+    
     var body: some View {
         VStack {
-            Spacer()
-                .frame(height: 100
-                )
-            FlashCard(canBeFlipped: true)
-            Spacer()
-            FlashCardStack()
+            //FlashCard(canBeFlipped: true, dictionaryEntry: tokiDictViewModel.dictionary.first!)
+            FlashCardStack(dictionary: flashCardsViewModel.randomDictionary)
         }
     }
 }
 
 struct FlashCardStack: View {
     
+    @State var dictionary: [TokiDictEntry]
+    @State private var flashCards: [FlashCard] = []
+    @State private var flashCardsCanBeFlipped: [Bool] = []
+    
     var body: some View {
-        ZStack {
-            ForEach(0 ..< 8) { item in
-                FlashCard(canBeFlipped: false)
-                    .offset(x: 0, y: -30 * CGFloat(item))
+        VStack {
+            ZStack {
+                ForEach(flashCards.indices, id: \.self) { i in
+                    if i == 0 {
+                        flashCards[0]
+                            .offset(x: 0, y: -300)
+                            .zIndex(0)
+                        
+                    } else if i < 10 {
+                        flashCards[i]
+                            .offset(x: 0, y: 30 * CGFloat(i))
+                            .zIndex(Double(-i))
+                    }
+                }
             }
+            .onAppear {
+                initFlashCardsArray()
+                flashCards[0].setCanBeFlipped(true)
+            }
+            Button {
+                self.popFromDictionary()
+            } label: {
+                Text("Next Card")
+            }
+            .background(.white)
+            .animation(.default)
         }
+    }
+    
+    func initFlashCardsArray() {
+        flashCards = []
+        for index in dictionary.indices {
+            flashCardsCanBeFlipped.append(false)
+            flashCards.append(FlashCard(canBeFlipped: $flashCardsCanBeFlipped[index], dictionaryEntry: dictionary[index]))
+        }
+    }
+    
+    func popFromDictionary() {
+        dictionary.removeFirst()
+        initFlashCardsArray()
     }
 }
 
@@ -38,28 +75,40 @@ struct FlashCard: View {
     
     @State var isFaceDown = false
     @State var rotationAngle: Double = 0
-    @State var canBeFlipped: Bool
+    @Binding var canBeFlipped: Bool
+    
+    var dictionaryEntry: TokiDictEntry
     
     var body: some View {
         
         let flipDegrees = isFaceDown ? 0.0 : 180.0
         
         Text("")
-            .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: "linja", backText: "long, very thin, floppy thing, e.g. string, rope, hair, thread, cord, chain"))
+            .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: dictionaryEntry.word, backText: concatenateDefinitions()))
             .frame(width: 0.8 * screen.width, height: 200.0)
             .font(.title)
             .rotation3DEffect(self.isFaceDown ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0))
             .animation(.default)
             .onTapGesture {
-                if canBeFlipped == true {
+                print("onTapGesture called")
+                if self.canBeFlipped == true {
                     self.isFaceDown.toggle()
                 }
             }
         
     }
     
+    func concatenateDefinitions() -> String {
+        var result = String()
+        for definition in dictionaryEntry.definitions {
+            result.append(contentsOf: definition.definition)
+        }
+        return result
+    }
+    
     func setCanBeFlipped(_ input: Bool) {
-        canBeFlipped = input
+        print("setCanBeFlipped called")
+        self.canBeFlipped.toggle()
     }
 }
 
