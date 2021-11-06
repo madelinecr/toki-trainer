@@ -10,38 +10,39 @@ import SwiftUI
 struct FlashCardView: View {
     let screen = UIScreen.main.bounds
     
-    @State var flipped = false
+    @State var isFaceDown = false
+    @State var rotationAngle: Double = 0
     
     var body: some View {
         
-        let flipDegrees = flipped ? 0.0 : 180.0
+        let flipDegrees = isFaceDown ? 0.0 : 180.0
         
-        ZStack() {
-            Text("sina").opacity(flipped ? 0.0 : 1.0)
-            Text("you")
-                .opacity(flipped ? 1.0 : 0.0)
-                .rotation3DEffect(Angle(degrees: -180 + flipDegrees), axis: (x: 0.0, y: 10.0, z: 0.0))
-        }
-        .frame(width: 0.8 * screen.width, height: 200.0)
-        .font(.title)
-        .background(self.flipped ? .cyan : .mint)
-        .cornerRadius(20)
-        .shadow(color: .gray, radius: 10.0, x: 10, y: 10)
-        .rotation3DEffect(self.flipped ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0)
-        )
-        .animation(.default)
-        .onTapGesture {
-            self.flipped.toggle()
-        }
-        
+        Text("sina")
+            .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: "linja", backText: "long, very thin, floppy thing, e.g. string, rope, hair, thread, cord, chain"))
+            .frame(width: 0.8 * screen.width, height: 200.0)
+            .font(.title)
+            .shadow(color: .gray, radius: 10.0, x: 10, y: 10)
+            .rotation3DEffect(self.isFaceDown ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0))
+            .animation(.default)
+            .onTapGesture {
+                self.isFaceDown.toggle()
+            }
+            
     }
 }
 
 struct CardFlipModifier: AnimatableModifier {
+    
+    var frontText: String
+    var backText: String
+    var isFaceDown: Bool
     var rotationAngle: Double
     
-    init(isFaceUp: Bool) {
-        rotationAngle = isFaceUp ? 0 : 180
+    init(isFaceDown: Bool, frontText: String, backText: String) {
+        rotationAngle = isFaceDown ? 180 : 0
+        self.isFaceDown = isFaceDown
+        self.frontText = frontText
+        self.backText = backText
     }
     
     var animatableData: Double {
@@ -50,11 +51,20 @@ struct CardFlipModifier: AnimatableModifier {
     }
     
     func body(content: Content) -> some View {
-        ZStack {
+        return ZStack {
             RoundedRectangle(cornerRadius: 20.0)
-                .fill(Color.blue.opacity(rotationAngle < 90 ? 0.5 : 1.0))
-            content
+                .fill(rotationAngle < 90 ? Color.blue : Color.cyan)
+                .animation(.none)
+            Text(frontText)
+                .font(.title)
                 .opacity(rotationAngle < 90 ? 1.0 : 0.0)
+                .animation(.none)
+            Text(backText)
+                .font(.subheadline)
+                .padding()
+                .opacity(rotationAngle < 90 ? 0.0 : 1.0)
+                .scaleEffect(CGSize(width: -1.0, height: 1.0))
+                .animation(.none)
         }
     }
 }
