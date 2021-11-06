@@ -46,10 +46,10 @@
             filePath = "Toki Trainer/Views/FlashCardView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "init(isFaceDown:frontText:backText:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

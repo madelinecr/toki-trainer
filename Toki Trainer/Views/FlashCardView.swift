@@ -22,37 +22,46 @@ struct FlashCardView: View {
 
 struct FlashCardStack: View {
     
-    @State var dictionary: [TokiDictEntry]
+    var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
+    @State private var topFlashCard: FlashCard? = nil
+    @State private var flashCardStack: [FlashCard] = []
     @State private var flashCardsCanBeFlipped: [Bool] = []
+    @State private var flashCardsVertOffset: [CGFloat] = []
+    
+    @State private var currentFlashCard = 0
+    
+    let timer = Timer.publish(every: 1, tolerance: 0.1, on: .main, in: .common, options: nil).autoconnect()
     
     var body: some View {
         VStack {
             ZStack {
-                ForEach(flashCards.indices, id: \.self) { i in
-                    if i == 0 {
-                        flashCards[0]
-                            .offset(x: 0, y: -300)
-                            .zIndex(0)
-                        
-                    } else if i < 10 {
-                        flashCards[i]
-                            .offset(x: 0, y: 30 * CGFloat(i))
-                            .zIndex(Double(-i))
+                if(flashCards.count > 0) {
+                    ForEach(flashCards.indices, id: \.self) { index in
+                        flashCards[index]
+                            .offset(x: 0, y: flashCardsVertOffset[index])
                     }
                 }
+    //                if(flashCards.count > 1) {
+//                    flashCards[currentFlashCard]
+//                        .offset(x: 0, y: flashCardsVertOffset[currentFlashCard])
+//                        .animation(.default)
+//                    flashCards[currentFlashCard + 1]
+//                        .offset(x: 0, y: flashCardsVertOffset[currentFlashCard + 1])
+//                        .animation(.default)
+//                }
             }
-            .onAppear {
-                initFlashCardsArray()
-                flashCards[0].setCanBeFlipped(true)
-            }
+            Spacer()
             Button {
-                self.popFromDictionary()
+                //self.currentFlashCard += 1
+                nextFlashCard()
             } label: {
                 Text("Next Card")
             }
             .background(.white)
-            .animation(.default)
+        }
+        .onAppear {
+            initFlashCardsArray()
         }
     }
     
@@ -61,12 +70,26 @@ struct FlashCardStack: View {
         for index in dictionary.indices {
             flashCardsCanBeFlipped.append(false)
             flashCards.append(FlashCard(canBeFlipped: $flashCardsCanBeFlipped[index], dictionaryEntry: dictionary[index]))
+            flashCardsVertOffset.append(800)
         }
     }
     
-    func popFromDictionary() {
-        dictionary.removeFirst()
-        initFlashCardsArray()
+    func nextFlashCard() {
+        if(currentFlashCard > 0 ) {
+            flashCardsVertOffset[currentFlashCard - 1] = -1000
+        }
+        flashCardsVertOffset[currentFlashCard] = 300
+        flashCards[currentFlashCard].setCanBeFlipped(true)
+        currentFlashCard += 1
+        //flashCardsVertOffset[currentFlashCard + 1] = 300
+    }
+    
+    func setTopFlashCard(card: FlashCard?) {
+        if let safeCard = card {
+            self.topFlashCard?.canBeFlipped = false
+            self.topFlashCard = safeCard
+            self.topFlashCard?.canBeFlipped = true
+        }
     }
 }
 
