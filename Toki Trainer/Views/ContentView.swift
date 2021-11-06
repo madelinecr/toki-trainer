@@ -18,7 +18,7 @@ struct ContentView: View {
     @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
     @State private var selectedPartOfSpeech: String?
     @State private var tokiInput: String = ""
-    
+       
     var body: some View {
         VStack {
             TextField("Enter Toki Pona Word or Phrase", text: $tokiInput)

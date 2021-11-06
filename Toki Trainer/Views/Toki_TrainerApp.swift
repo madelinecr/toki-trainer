@@ -13,8 +13,9 @@ struct Toki_TrainerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            FlashCardView()
+            //ContentView()
+            //    .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
