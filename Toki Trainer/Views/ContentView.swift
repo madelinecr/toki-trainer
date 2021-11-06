@@ -16,7 +16,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
-    @State private var selectedPartOfSpeech: String? = nil
+    @State private var selectedPartOfSpeech: String?
     @State private var tokiInput: String = ""
     
     var body: some View {
@@ -64,7 +64,7 @@ struct ContentView: View {
                 .background(.thinMaterial)
             }
             .sheet(item: $selectedPartOfSpeech) { selectedPOS in
-                PartsOfSpeechView(selectedPartOfSpeech: selectedPOS, tokiDictViewModel: self.tokiDictViewModel)
+                PartsOfSpeechView(selectedPartOfSpeech: selectedPOS, partsOfSpeech: tokiDictViewModel.partsOfSpeech)
             }
         }
     }

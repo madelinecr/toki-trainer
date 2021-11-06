@@ -10,7 +10,9 @@ import SwiftUI
 struct PartsOfSpeechView: View {
     var selectedPartOfSpeech: String? = nil
     
-    @ObservedObject var tokiDictViewModel: TokiDictionaryViewModel
+    @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
+    
+    var partsOfSpeech: [TokiPartOfSpeech]
     
 //    init(selectedPartOfSpeech: String) {
 //        _selectedPartOfSpeech = State(initialValue: selectedPartOfSpeech)
@@ -32,7 +34,7 @@ struct PartsOfSpeechView: View {
                         Spacer()
                     }
                     //.background(.blue)
-                    .background((selectedPartOfSpeech == pos.pos) ? Color(UIColor.systemGray4) : .white)
+                    .background((selectedPartOfSpeech == pos.pos) ? Color(UIColor.systemGray4) : Color(UIColor.systemBackground))
                     .cornerRadius(5.0)
                     .padding(2)
                 }
@@ -44,6 +46,7 @@ struct PartsOfSpeechView: View {
 
 struct PartsOfSpeechView_Previews: PreviewProvider {
     static var previews: some View {
-        PartsOfSpeechView(selectedPartOfSpeech: "sep", tokiDictViewModel: TokiDictionaryViewModel())
+        PartsOfSpeechView(selectedPartOfSpeech: "sep", partsOfSpeech: [TokiPartOfSpeech(pos: "sep", definition: "test")])
+            .preferredColorScheme(.dark)
     }
 }
