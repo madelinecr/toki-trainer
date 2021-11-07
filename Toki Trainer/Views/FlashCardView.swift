@@ -7,16 +7,31 @@
 
 import SwiftUI
 
+enum FlashCardResult {
+    case Correct
+    case Incorrect
+    case Unanswered
+}
+
 struct FlashCardView: View {
     
-    //@ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
     @ObservedObject var flashCardsViewModel = FlashCardsViewModel()
     
     var body: some View {
         VStack {
-            //FlashCard(canBeFlipped: true, dictionaryEntry: tokiDictViewModel.dictionary.first!)
             FlashCardStack(dictionary: flashCardsViewModel.randomDictionary)
         }
+    }
+}
+
+extension Binding {
+    func onChange(_ handler: @escaping () -> ()) -> Binding<Value> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler()
+            })
     }
 }
 
@@ -26,12 +41,11 @@ struct FlashCardStack: View {
     @State private var flashCards: [FlashCard] = []
     @State private var topFlashCard: FlashCard? = nil
     @State private var flashCardStack: [FlashCard] = []
-    @State private var flashCardsCanBeFlipped: [Bool] = []
+    @State private var flashCardsAreInteractive: [Bool] = []
     @State private var flashCardsVertOffset: [CGFloat] = []
+    @State private var flashCardsResults: [FlashCardResult] = []
     
     @State private var currentFlashCard = 0
-    
-    let timer = Timer.publish(every: 1, tolerance: 0.1, on: .main, in: .common, options: nil).autoconnect()
     
     var body: some View {
         VStack {
@@ -40,55 +54,66 @@ struct FlashCardStack: View {
                     ForEach(flashCards.indices, id: \.self) { index in
                         flashCards[index]
                             .offset(x: 0, y: flashCardsVertOffset[index])
+                            .zIndex(-(CGFloat(index * 100)))
                     }
                 }
-    //                if(flashCards.count > 1) {
-//                    flashCards[currentFlashCard]
-//                        .offset(x: 0, y: flashCardsVertOffset[currentFlashCard])
-//                        .animation(.default)
-//                    flashCards[currentFlashCard + 1]
-//                        .offset(x: 0, y: flashCardsVertOffset[currentFlashCard + 1])
-//                        .animation(.default)
-//                }
             }
-            Spacer()
-            Button {
-                //self.currentFlashCard += 1
-                nextFlashCard()
-            } label: {
-                Text("Next Card")
-            }
-            .background(.white)
         }
+        Spacer()
         .onAppear {
-            initFlashCardsArray()
+            initFlashCards()
+            print(currentFlashCard)
         }
     }
     
-    func initFlashCardsArray() {
+    func initFlashCards() {
         flashCards = []
         for index in dictionary.indices {
-            flashCardsCanBeFlipped.append(false)
-            flashCards.append(FlashCard(canBeFlipped: $flashCardsCanBeFlipped[index], dictionaryEntry: dictionary[index]))
-            flashCardsVertOffset.append(800)
+            flashCardsAreInteractive.append(false)
+            flashCardsResults.append(FlashCardResult.Unanswered)
+            flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(nextFlashCard), dictionaryEntry: dictionary[index]))
+            flashCardsVertOffset.append(470)
         }
+        if flashCards.count - currentFlashCard >= 3 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 2] = 440
+            flashCardsVertOffset[currentFlashCard + 3] = 470
+        } else if flashCards.count - currentFlashCard == 2 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 2] = 440
+        } else if flashCards.count - currentFlashCard == 1 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+        }
+        
+        flashCardsVertOffset[currentFlashCard] = 100
+        flashCardsAreInteractive[currentFlashCard] = true
     }
     
     func nextFlashCard() {
+        currentFlashCard += 1
         if(currentFlashCard > 0 ) {
             flashCardsVertOffset[currentFlashCard - 1] = -1000
         }
-        flashCardsVertOffset[currentFlashCard] = 300
-        flashCards[currentFlashCard].setCanBeFlipped(true)
-        currentFlashCard += 1
-        //flashCardsVertOffset[currentFlashCard + 1] = 300
+        flashCardsVertOffset[currentFlashCard] = 100
+        flashCardsAreInteractive[currentFlashCard] = true
+        
+        if flashCards.count - currentFlashCard >= 3 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 2] = 440
+            flashCardsVertOffset[currentFlashCard + 3] = 470
+        } else if flashCards.count - currentFlashCard == 2 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 2] = 440
+        } else if flashCards.count - currentFlashCard == 1 {
+            flashCardsVertOffset[currentFlashCard + 1] = 410
+        }
     }
     
     func setTopFlashCard(card: FlashCard?) {
         if let safeCard = card {
-            self.topFlashCard?.canBeFlipped = false
+            self.topFlashCard?.isInteractive = false
             self.topFlashCard = safeCard
-            self.topFlashCard?.canBeFlipped = true
+            self.topFlashCard?.isInteractive = true
         }
     }
 }
@@ -98,40 +123,64 @@ struct FlashCard: View {
     
     @State var isFaceDown = false
     @State var rotationAngle: Double = 0
-    @Binding var canBeFlipped: Bool
+    @Binding var isInteractive: Bool
+    @Binding var result: FlashCardResult
     
     var dictionaryEntry: TokiDictEntry
     
+    @State private var dragAmount = CGFloat(0)
+    
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                if isInteractive {
+                    self.dragAmount = gesture.translation.width
+                }
+            }
+            .onEnded { gesture in
+                withAnimation {
+                    if isInteractive {
+                        if self.dragAmount < -20 {
+                            self.dragAmount = -500
+                            self.result = FlashCardResult.Incorrect
+                        } else if self.dragAmount > 20 {
+                            self.dragAmount = 500
+                            self.result = FlashCardResult.Correct
+                        }
+                    }
+                }
+            }
+    }
+    
     var body: some View {
-        
-        let flipDegrees = isFaceDown ? 0.0 : 180.0
         
         Text("")
             .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: dictionaryEntry.word, backText: concatenateDefinitions()))
             .frame(width: 0.8 * screen.width, height: 200.0)
+            .offset(x: isFaceDown ? -dragAmount : dragAmount, y: abs(dragAmount) / 10)
+            .rotationEffect(.degrees(isFaceDown ? -(dragAmount / 50) : dragAmount / 50))
             .font(.title)
             .rotation3DEffect(self.isFaceDown ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0))
             .animation(.default)
             .onTapGesture {
-                print("onTapGesture called")
-                if self.canBeFlipped == true {
+                if self.isInteractive == true {
                     self.isFaceDown.toggle()
                 }
             }
+            .gesture(drag)
         
     }
     
     func concatenateDefinitions() -> String {
         var result = String()
         for definition in dictionaryEntry.definitions {
-            result.append(contentsOf: definition.definition)
+            result.append(contentsOf: "\(definition.definition)\n")
         }
         return result
     }
     
     func setCanBeFlipped(_ input: Bool) {
-        print("setCanBeFlipped called")
-        self.canBeFlipped.toggle()
+        self.isInteractive.toggle()
     }
 }
 
@@ -158,25 +207,22 @@ struct CardFlipModifier: AnimatableModifier {
         return ZStack {
             RoundedRectangle(cornerRadius: 20.0)
                 .fill(rotationAngle < 90 ? Color.blue : Color.cyan)
-                .animation(.none)
+                .animation(.none, value: rotationAngle)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(.cyan, lineWidth: 5))
+                .animation(.none, value: rotationAngle)
             Text(frontText)
                 .font(.title)
                 .opacity(rotationAngle < 90 ? 1.0 : 0.0)
-                .animation(.none)
+                .animation(.none, value: rotationAngle)
             Text(backText)
                 .font(.subheadline)
                 .padding()
                 .opacity(rotationAngle < 90 ? 0.0 : 1.0)
+                .animation(.none, value: rotationAngle)
                 .scaleEffect(CGSize(width: -1.0, height: 1.0))
-                .animation(.none)
         }
-    }
-    
-    private func getCardColor() -> Color {
-        rotationAngle < 90 ? Color.blue : Color.cyan
     }
 }
 

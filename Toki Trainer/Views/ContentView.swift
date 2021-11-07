@@ -15,10 +15,33 @@ extension String: Identifiable {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State private var tokiInput: String = ""
+    
+    var body: some View {
+        TabView {
+            TranslatorView()
+            .tabItem {
+                Image(systemName: "pencil")
+                Text("Phrase Lookup")
+            }
+            FlashCardView()
+                .tabItem {
+                    Image(systemName: "character.textbox")
+                    Text("Flash Cards")
+                }
+        }
+    }
+    
+    func openPartsOfSpeechView() {
+        print("Button pressed.")
+    }
+}
+
+struct TranslatorView: View {
     @ObservedObject var tokiDictViewModel = TokiDictionaryViewModel()
     @State private var selectedPartOfSpeech: String?
     @State private var tokiInput: String = ""
-       
+    
     var body: some View {
         VStack {
             TextField("Enter Toki Pona Word or Phrase", text: $tokiInput)
@@ -53,24 +76,10 @@ struct ContentView: View {
                     }
                 }
             }
-            .safeAreaInset(edge: .bottom) {
-                HStack() {
-                    Button("Parts of Speech") {
-                        self.selectedPartOfSpeech = ""
-                    }
-                    .padding(8)
-                }
-                .frame(maxWidth: .infinity)
-                .background(.thinMaterial)
-            }
             .sheet(item: $selectedPartOfSpeech) { selectedPOS in
                 PartsOfSpeechView(selectedPartOfSpeech: selectedPOS, partsOfSpeech: tokiDictViewModel.partsOfSpeech)
             }
         }
-    }
-    
-    func openPartsOfSpeechView() {
-        print("Button pressed.")
     }
 }
 
