@@ -18,7 +18,7 @@ class FlashCardsViewModel: ObservableObject {
         if let safeDictionary = jsonLoader.loadDictionary() {
             fullDictionary = safeDictionary
             randomDictionary = safeDictionary
-            randomDictionary.shuffle()
+            //randomDictionary.shuffle()
         }
     }
     

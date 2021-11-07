@@ -39,6 +39,8 @@ extension Binding {
 struct FlashCardStack: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @FetchRequest(entity:FlashCardAnswer.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardAnswer.word, ascending: false)]) var flashCardAnswers: FetchedResults<FlashCardAnswer>
+    
     var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
     @State private var topFlashCard: FlashCard? = nil
@@ -72,7 +74,6 @@ struct FlashCardStack: View {
         Spacer()
         .onAppear {
             initFlashCards()
-            print(currentFlashCard)
         }
     }
     
@@ -99,18 +100,50 @@ struct FlashCardStack: View {
         flashCardsAreInteractive[currentFlashCard] = true
     }
     
+    func setFlashCardAnswersCoreData(_ correct: Bool) {
+        var cardInDatabase = false
+        for answer in flashCardAnswers {
+            print(answer.word)
+            if answer.word == dictionary[currentFlashCard].word {
+                cardInDatabase = true
+                answer.setValue((answer.triesCount + 1), forKey: "triesCount")
+                if correct {
+                    answer.setValue((answer.correctCount + 1), forKey: "correctCount")
+                }
+                print("answer found in database")
+            }
+        }
+        
+        if cardInDatabase == false {
+            let answer = FlashCardAnswer(context: viewContext)
+            answer.word = dictionary[currentFlashCard].word
+            answer.triesCount = 1
+            if correct {
+                answer.correctCount = 1
+            }
+            print("answer not found in database")
+        }
+        
+//        for answer in flashCardAnswers {
+//            if answer.word == dictionary[currentFlashCard].word {
+//                flashCardAnswer.word = answer.word
+//                flashCardAnswer.triesCount = answer.triesCount + 1
+//                if correct {
+//                    flashCardAnswer.correctCount = answer.correctCount + 1
+//                }
+//            }
+//        }
+        try? viewContext.save()
+    }
+    
     func cardAnswerReceived() {
-        let flashCardAnswer = FlashCardAnswer(context: viewContext)
-        flashCardAnswer.word = dictionary[currentFlashCard].word
         if flashCardsResults[currentFlashCard] == FlashCardResult.Correct {
-            flashCardAnswer.correct = true
+            setFlashCardAnswersCoreData(true)
         } else if flashCardsResults[currentFlashCard] == FlashCardResult.Incorrect {
-            flashCardAnswer.correct = false
+            setFlashCardAnswersCoreData(false)
         } else {
             return
         }
-        try? viewContext.save()
-        
         nextFlashCard()
     }
     

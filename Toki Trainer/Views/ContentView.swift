@@ -29,7 +29,7 @@ struct ContentView: View {
                     Image(systemName: "character.textbox")
                     Text("Flash Cards")
                 }
-            FlashCardResultView()
+            FlashCardResultsView()
                 .tabItem {
                     Image(systemName: "phone.fill")
                     Text("Flash Card Results")
