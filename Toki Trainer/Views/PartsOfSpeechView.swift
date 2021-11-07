@@ -44,5 +44,6 @@ struct PartsOfSpeechView_Previews: PreviewProvider {
     static var previews: some View {
         PartsOfSpeechView(selectedPartOfSpeech: "sep", partsOfSpeech: [TokiPartOfSpeech(pos: "sep", definition: "test")])
             .preferredColorScheme(.dark)
+        PartsOfSpeechView(selectedPartOfSpeech: "sep", partsOfSpeech: [TokiPartOfSpeech(pos: "sep", definition: "test")])
     }
 }
