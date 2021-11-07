@@ -31,4 +31,12 @@ struct K {
         
         return request
     }
+    
+    static var getFlashCardAnswersWithPredicateFetchRequest: NSFetchRequest<FlashCardAnswer> {
+        let request: NSFetchRequest<FlashCardAnswer> = FlashCardAnswer.fetchRequest()
+        request.sortDescriptors = []
+        request.predicate = NSPredicate(format: "word == %@", "a")
+        
+        return request
+    }
 }

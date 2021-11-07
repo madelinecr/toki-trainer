@@ -103,8 +103,10 @@ struct FlashCardStack: View {
     func setFlashCardAnswersCoreData(_ correct: Bool) {
         var cardInDatabase = false
         for answer in flashCardAnswers {
-            print(answer.word)
             if answer.word == dictionary[currentFlashCard].word {
+                print("word in database: \(answer.word)")
+                print("tries: \(answer.triesCount)")
+                print("correct`: \(answer.correctCount)")
                 cardInDatabase = true
                 answer.setValue((answer.triesCount + 1), forKey: "triesCount")
                 if correct {
