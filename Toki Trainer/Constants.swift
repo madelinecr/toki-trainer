@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 struct K {
     static let posColors = [
@@ -23,4 +24,11 @@ struct K {
         "oth": UIColor.systemBrown,
         "extra": UIColor.systemBrown
     ]
+    
+    static var getFlashCardAnswersFetchRequest: NSFetchRequest<FlashCardAnswer> {
+        let request: NSFetchRequest<FlashCardAnswer> = FlashCardAnswer.fetchRequest()
+        request.sortDescriptors = []
+        
+        return request
+    }
 }

@@ -39,7 +39,7 @@ extension Binding {
 struct FlashCardStack: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(entity:FlashCardAnswer.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardAnswer.word, ascending: false)]) var flashCardAnswers: FetchedResults<FlashCardAnswer>
+    @FetchRequest(fetchRequest: K.getFlashCardAnswersFetchRequest) var flashCardAnswers: FetchedResults<FlashCardAnswer>
     
     var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
