@@ -23,6 +23,7 @@
 		7E943A28273211C300E7DDF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E943A27273211C300E7DDF4 /* Preview Assets.xcassets */; };
 		7E943A2A273211C300E7DDF4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A29273211C300E7DDF4 /* Persistence.swift */; };
 		7E943A2D273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A2B273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld */; };
+		7EF546162737B8FB00537AE6 /* FlashCardResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF546152737B8FA00537AE6 /* FlashCardResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		7E943A27273211C300E7DDF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E943A29273211C300E7DDF4 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		7E943A2C273211C300E7DDF4 /* Toki_Trainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Toki_Trainer.xcdatamodel; sourceTree = "<group>"; };
+		7EF546152737B8FA00537AE6 /* FlashCardResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				7E943A22273211C200E7DDF4 /* ContentView.swift */,
 				7E20D5FE2733AFE700D75B9A /* PartsOfSpeechView.swift */,
 				7E71E6EC2735D70C007CFF72 /* FlashCardView.swift */,
+				7EF546152737B8FA00537AE6 /* FlashCardResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				7E20D6012734466800D75B9A /* TokiDictionaryViewModel.swift in Sources */,
 				7E2811192733027F0063DC78 /* TokiPartOfSpeech.swift in Sources */,
 				7E943A23273211C200E7DDF4 /* ContentView.swift in Sources */,
+				7EF546162737B8FB00537AE6 /* FlashCardResultView.swift in Sources */,
 				7E2811172733027F0063DC78 /* TokiDictionary.swift in Sources */,
 				7E71E6ED2735D70C007CFF72 /* FlashCardView.swift in Sources */,
 				7E943A21273211C200E7DDF4 /* Toki_TrainerApp.swift in Sources */,

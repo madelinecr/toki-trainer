@@ -14,10 +14,6 @@ struct PartsOfSpeechView: View {
     
     var partsOfSpeech: [TokiPartOfSpeech]
     
-//    init(selectedPartOfSpeech: String) {
-//        _selectedPartOfSpeech = State(initialValue: selectedPartOfSpeech)
-//    }
-    
     var body: some View {
         VStack {
             Text("Parts of Speech")

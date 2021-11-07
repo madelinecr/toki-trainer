@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 enum FlashCardResult {
     case Correct
@@ -36,6 +37,7 @@ extension Binding {
 }
 
 struct FlashCardStack: View {
+    @Environment(\.managedObjectContext) private var viewContext
     
     var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
@@ -44,6 +46,7 @@ struct FlashCardStack: View {
     @State private var flashCardsAreInteractive: [Bool] = []
     @State private var flashCardsVertOffset: [CGFloat] = []
     @State private var flashCardsResults: [FlashCardResult] = []
+    @State private var fadeOutOverlay = false
     
     @State private var currentFlashCard = 0
     
@@ -58,6 +61,13 @@ struct FlashCardStack: View {
                     }
                 }
             }
+            .overlay(HStack {
+                Image(systemName: "arrow.backward")
+                Text("Incorrect")
+                Spacer()
+                Text("Correct")
+                Image(systemName: "arrow.right")
+            }.opacity(fadeOutOverlay ? 0.0 : 1.0), alignment: .top)
         }
         Spacer()
         .onAppear {
@@ -71,7 +81,7 @@ struct FlashCardStack: View {
         for index in dictionary.indices {
             flashCardsAreInteractive.append(false)
             flashCardsResults.append(FlashCardResult.Unanswered)
-            flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(nextFlashCard), dictionaryEntry: dictionary[index]))
+            flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(cardAnswerReceived), dictionaryEntry: dictionary[index]))
             flashCardsVertOffset.append(470)
         }
         if flashCards.count - currentFlashCard >= 3 {
@@ -89,6 +99,21 @@ struct FlashCardStack: View {
         flashCardsAreInteractive[currentFlashCard] = true
     }
     
+    func cardAnswerReceived() {
+        let flashCardAnswer = FlashCardAnswer(context: viewContext)
+        flashCardAnswer.word = dictionary[currentFlashCard].word
+        if flashCardsResults[currentFlashCard] == FlashCardResult.Correct {
+            flashCardAnswer.correct = true
+        } else if flashCardsResults[currentFlashCard] == FlashCardResult.Incorrect {
+            flashCardAnswer.correct = false
+        } else {
+            return
+        }
+        try? viewContext.save()
+        
+        nextFlashCard()
+    }
+    
     func nextFlashCard() {
         currentFlashCard += 1
         if(currentFlashCard > 0 ) {
@@ -96,6 +121,8 @@ struct FlashCardStack: View {
         }
         flashCardsVertOffset[currentFlashCard] = 100
         flashCardsAreInteractive[currentFlashCard] = true
+        
+        self.fadeOutOverlay = true
         
         if flashCards.count - currentFlashCard >= 3 {
             flashCardsVertOffset[currentFlashCard + 1] = 410
@@ -146,6 +173,8 @@ struct FlashCard: View {
                         } else if self.dragAmount > 20 {
                             self.dragAmount = 500
                             self.result = FlashCardResult.Correct
+                        } else {
+                            self.dragAmount = 0
                         }
                     }
                 }
@@ -228,6 +257,6 @@ struct CardFlipModifier: AnimatableModifier {
 
 struct FlashCardView_Previews: PreviewProvider {
     static var previews: some View {
-        FlashCardView()
+        FlashCardView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

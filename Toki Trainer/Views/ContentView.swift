@@ -20,14 +20,19 @@ struct ContentView: View {
     var body: some View {
         TabView {
             TranslatorView()
-            .tabItem {
-                Image(systemName: "pencil")
-                Text("Phrase Lookup")
-            }
+                .tabItem {
+                    Image(systemName: "pencil")
+                    Text("Phrase Lookup")
+                }
             FlashCardView()
                 .tabItem {
                     Image(systemName: "character.textbox")
                     Text("Flash Cards")
+                }
+            FlashCardResultView()
+                .tabItem {
+                    Image(systemName: "phone.fill")
+                    Text("Flash Card Results")
                 }
         }
     }
@@ -86,6 +91,6 @@ struct TranslatorView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
