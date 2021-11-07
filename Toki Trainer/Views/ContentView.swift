@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
             FlashCardResultsView()
                 .tabItem {
-                    Image(systemName: "phone.fill")
+                    Image(systemName: "number.circle")
                     Text("Flash Card Results")
                 }
         }
