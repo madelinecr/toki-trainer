@@ -245,6 +245,7 @@ struct FlashCard: View {
             .font(.title)
             .rotation3DEffect(self.isFaceDown ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0))
             .animation(.default, value: isFaceDown)
+            .animation(.default, value: dragAmount)
             .onTapGesture {
                 if self.isInteractive == true {
                     self.isFaceDown.toggle()
