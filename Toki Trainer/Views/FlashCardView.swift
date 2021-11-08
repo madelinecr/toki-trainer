@@ -238,7 +238,7 @@ struct FlashCard: View {
         
         Text("")
             .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: dictionaryEntry.word, backText: concatenateDefinitions()))
-            .frame(width: 0.8 * screen.width)
+            .frame(width: 0.8 * screen.width, height: 200)
             .offset(x: isFaceDown ? -dragAmount : dragAmount, y: abs(dragAmount) / 10)
             .rotationEffect(.degrees(isFaceDown ? -(dragAmount / 50) : dragAmount / 50))
             .font(.title)
