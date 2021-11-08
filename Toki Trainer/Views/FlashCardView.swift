@@ -76,6 +76,7 @@ struct FlashCardStack: View {
                     ForEach(flashCards.indices, id: \.self) { index in
                         flashCards[index]
                             .offset(x: 0, y: flashCardsVertOffset[index])
+                            .animation(.default, value: flashCardsVertOffset[index])
                             .zIndex(-(CGFloat(index * 10)))
                     }
                 }
@@ -242,7 +243,7 @@ struct FlashCard: View {
             .rotationEffect(.degrees(isFaceDown ? -(dragAmount / 50) : dragAmount / 50))
             .font(.title)
             .rotation3DEffect(self.isFaceDown ? Angle(degrees: 180) : Angle(degrees: 0), axis: (x: 0.0, y: 10.0, z: 0.0))
-            .animation(.default)
+            .animation(.default, value: isFaceDown)
             .onTapGesture {
                 if self.isInteractive == true {
                     self.isFaceDown.toggle()
