@@ -15,6 +15,10 @@
 		7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111A273302860063DC78 /* toki-partsofspeech.json */; };
 		7E28111D273302860063DC78 /* toki-dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111B273302860063DC78 /* toki-dictionary.json */; };
 		7E28112227330DD30063DC78 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E28112127330DD20063DC78 /* Constants.swift */; };
+		7E716B3E273986E5009E2CF6 /* TokiLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B3D273986E5009E2CF6 /* TokiLesson.swift */; };
+		7E716B4027398ABD009E2CF6 /* toki-lessons.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E716B3F27398ABD009E2CF6 /* toki-lessons.json */; };
+		7E716B4227398CDF009E2CF6 /* FlashCardLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */; };
+		7E716B4427398D3D009E2CF6 /* FlashCardLessonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */; };
 		7E71E6ED2735D70C007CFF72 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E71E6EC2735D70C007CFF72 /* FlashCardView.swift */; };
 		7E71E6F12736DAE4007CFF72 /* FlashCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E71E6F02736DAE4007CFF72 /* FlashCardsViewModel.swift */; };
 		7E943A21273211C200E7DDF4 /* Toki_TrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A20273211C200E7DDF4 /* Toki_TrainerApp.swift */; };
@@ -35,6 +39,10 @@
 		7E28111A273302860063DC78 /* toki-partsofspeech.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-partsofspeech.json"; sourceTree = "<group>"; };
 		7E28111B273302860063DC78 /* toki-dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-dictionary.json"; sourceTree = "<group>"; };
 		7E28112127330DD20063DC78 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7E716B3D273986E5009E2CF6 /* TokiLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokiLesson.swift; sourceTree = "<group>"; };
+		7E716B3F27398ABD009E2CF6 /* toki-lessons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "toki-lessons.json"; path = "../../../../../Desktop/toki-pona-dict-json/output/toki-lessons.json"; sourceTree = "<group>"; };
+		7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsView.swift; sourceTree = "<group>"; };
+		7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsViewModel.swift; sourceTree = "<group>"; };
 		7E71E6EC2735D70C007CFF72 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		7E71E6F02736DAE4007CFF72 /* FlashCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewModel.swift; sourceTree = "<group>"; };
 		7E943A1D273211C200E7DDF4 /* Toki Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Toki Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +72,7 @@
 				7E2811142733027F0063DC78 /* TokiDictionary.swift */,
 				7E2811152733027F0063DC78 /* TokiJSONLoader.swift */,
 				7E2811162733027F0063DC78 /* TokiPartOfSpeech.swift */,
+				7E716B3D273986E5009E2CF6 /* TokiLesson.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -76,6 +85,7 @@
 				7E20D5FE2733AFE700D75B9A /* PartsOfSpeechView.swift */,
 				7E71E6EC2735D70C007CFF72 /* FlashCardView.swift */,
 				7EF546152737B8FA00537AE6 /* FlashCardResultsView.swift */,
+				7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -85,6 +95,7 @@
 			children = (
 				7E20D6002734466800D75B9A /* TokiDictionaryViewModel.swift */,
 				7E71E6F02736DAE4007CFF72 /* FlashCardsViewModel.swift */,
+				7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -93,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				7E28111B273302860063DC78 /* toki-dictionary.json */,
+				7E716B3F27398ABD009E2CF6 /* toki-lessons.json */,
 				7E28111A273302860063DC78 /* toki-partsofspeech.json */,
 			);
 			path = "JSON Data";
@@ -197,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E943A28273211C300E7DDF4 /* Preview Assets.xcassets in Resources */,
+				7E716B4027398ABD009E2CF6 /* toki-lessons.json in Resources */,
 				7E943A25273211C300E7DDF4 /* Assets.xcassets in Resources */,
 				7E28111D273302860063DC78 /* toki-dictionary.json in Resources */,
 				7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */,
@@ -215,13 +228,16 @@
 				7E20D5FF2733AFE700D75B9A /* PartsOfSpeechView.swift in Sources */,
 				7E71E6F12736DAE4007CFF72 /* FlashCardsViewModel.swift in Sources */,
 				7E20D6012734466800D75B9A /* TokiDictionaryViewModel.swift in Sources */,
+				7E716B4427398D3D009E2CF6 /* FlashCardLessonsViewModel.swift in Sources */,
 				7E2811192733027F0063DC78 /* TokiPartOfSpeech.swift in Sources */,
 				7E943A23273211C200E7DDF4 /* ContentView.swift in Sources */,
 				7EF546162737B8FB00537AE6 /* FlashCardResultsView.swift in Sources */,
+				7E716B4227398CDF009E2CF6 /* FlashCardLessonsView.swift in Sources */,
 				7E2811172733027F0063DC78 /* TokiDictionary.swift in Sources */,
 				7E71E6ED2735D70C007CFF72 /* FlashCardView.swift in Sources */,
 				7E943A21273211C200E7DDF4 /* Toki_TrainerApp.swift in Sources */,
 				7E2811182733027F0063DC78 /* TokiJSONLoader.swift in Sources */,
+				7E716B3E273986E5009E2CF6 /* TokiLesson.swift in Sources */,
 				7E28112227330DD30063DC78 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,6 +31,17 @@ class TokiJSONLoader: ObservableObject {
         }
     }
     
+    func loadLessons() -> [TokiLesson]? {
+        let jsonData = loadJSON("toki-lessons")
+        do {
+            let decodedData = try JSONDecoder().decode([TokiLesson].self, from: jsonData!)
+            return decodedData
+        } catch {
+            print("Decode error: \(error)")
+            return nil
+        }
+    }
+    
     func loadJSON(_ resource: String) -> Data? {
         do {
             if let bundlePath = Bundle.main.path(forResource: resource, ofType: "json"), let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {

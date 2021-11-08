@@ -18,9 +18,27 @@ struct FlashCardView: View {
     
     @ObservedObject var flashCardsViewModel = FlashCardsViewModel()
     
+    @State var dictionary: [TokiDictEntry]?
+    
+    init(_ passedDictionary: [TokiDictEntry]?) {
+        if passedDictionary != nil {
+            if let safePassedDictionary = passedDictionary {
+                self.dictionary = safePassedDictionary
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
-            FlashCardStack(dictionary: flashCardsViewModel.randomDictionary)
+            FlashCardStack(dictionary: getDictionary())
+        }
+    }
+    
+    func getDictionary() -> [TokiDictEntry] {
+        if dictionary != nil {
+           return dictionary ?? []
+        } else {
+            return flashCardsViewModel.randomDictionary
         }
     }
 }
@@ -59,7 +77,7 @@ struct FlashCardStack: View {
                     ForEach(flashCards.indices, id: \.self) { index in
                         flashCards[index]
                             .offset(x: 0, y: flashCardsVertOffset[index])
-                            .zIndex(-(CGFloat(index * 100)))
+                            .zIndex(-(CGFloat(index * 10)))
                     }
                 }
             }
@@ -72,9 +90,9 @@ struct FlashCardStack: View {
             }.opacity(fadeOutOverlay ? 0.0 : 1.0), alignment: .top)
         }
         Spacer()
-        .onAppear {
-            initFlashCards()
-        }
+            .onAppear {
+                initFlashCards()
+            }
     }
     
     func initFlashCards() {
@@ -83,17 +101,17 @@ struct FlashCardStack: View {
             flashCardsAreInteractive.append(false)
             flashCardsResults.append(FlashCardResult.Unanswered)
             flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(cardAnswerReceived), dictionaryEntry: dictionary[index]))
-            flashCardsVertOffset.append(470)
+            flashCardsVertOffset.append(370)
         }
         if flashCards.count - currentFlashCard >= 3 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
-            flashCardsVertOffset[currentFlashCard + 2] = 440
-            flashCardsVertOffset[currentFlashCard + 3] = 470
+            flashCardsVertOffset[currentFlashCard + 1] = 310
+            flashCardsVertOffset[currentFlashCard + 2] = 340
+            flashCardsVertOffset[currentFlashCard + 3] = 370
         } else if flashCards.count - currentFlashCard == 2 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
-            flashCardsVertOffset[currentFlashCard + 2] = 440
+            flashCardsVertOffset[currentFlashCard + 1] = 310
+            flashCardsVertOffset[currentFlashCard + 2] = 340
         } else if flashCards.count - currentFlashCard == 1 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 1] = 310
         }
         
         flashCardsVertOffset[currentFlashCard] = 100
@@ -126,15 +144,15 @@ struct FlashCardStack: View {
             print("answer not found in database")
         }
         
-//        for answer in flashCardAnswers {
-//            if answer.word == dictionary[currentFlashCard].word {
-//                flashCardAnswer.word = answer.word
-//                flashCardAnswer.triesCount = answer.triesCount + 1
-//                if correct {
-//                    flashCardAnswer.correctCount = answer.correctCount + 1
-//                }
-//            }
-//        }
+        //        for answer in flashCardAnswers {
+        //            if answer.word == dictionary[currentFlashCard].word {
+        //                flashCardAnswer.word = answer.word
+        //                flashCardAnswer.triesCount = answer.triesCount + 1
+        //                if correct {
+        //                    flashCardAnswer.correctCount = answer.correctCount + 1
+        //                }
+        //            }
+        //        }
         try? viewContext.save()
     }
     
@@ -160,14 +178,14 @@ struct FlashCardStack: View {
         self.fadeOutOverlay = true
         
         if flashCards.count - currentFlashCard >= 3 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
-            flashCardsVertOffset[currentFlashCard + 2] = 440
-            flashCardsVertOffset[currentFlashCard + 3] = 470
+            flashCardsVertOffset[currentFlashCard + 1] = 310
+            flashCardsVertOffset[currentFlashCard + 2] = 340
+            flashCardsVertOffset[currentFlashCard + 3] = 370
         } else if flashCards.count - currentFlashCard == 2 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
-            flashCardsVertOffset[currentFlashCard + 2] = 440
+            flashCardsVertOffset[currentFlashCard + 1] = 310
+            flashCardsVertOffset[currentFlashCard + 2] = 340
         } else if flashCards.count - currentFlashCard == 1 {
-            flashCardsVertOffset[currentFlashCard + 1] = 410
+            flashCardsVertOffset[currentFlashCard + 1] = 310
         }
     }
     
@@ -220,7 +238,7 @@ struct FlashCard: View {
         
         Text("")
             .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: dictionaryEntry.word, backText: concatenateDefinitions()))
-            .frame(width: 0.8 * screen.width, height: 200.0)
+            .frame(width: 0.8 * screen.width)
             .offset(x: isFaceDown ? -dragAmount : dragAmount, y: abs(dragAmount) / 10)
             .rotationEffect(.degrees(isFaceDown ? -(dragAmount / 50) : dragAmount / 50))
             .font(.title)
@@ -298,6 +316,6 @@ struct CardFlipModifier: AnimatableModifier {
 
 struct FlashCardView_Previews: PreviewProvider {
     static var previews: some View {
-        FlashCardView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FlashCardView(nil).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -24,7 +24,7 @@ struct ContentView: View {
                     Image(systemName: "pencil")
                     Text("Phrase Lookup")
                 }
-            FlashCardView()
+            FlashCardLessonsView()
                 .tabItem {
                     Image(systemName: "character.textbox")
                     Text("Flash Cards")
