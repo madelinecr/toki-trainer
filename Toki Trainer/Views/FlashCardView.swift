@@ -62,7 +62,6 @@ struct FlashCardStack: View {
     var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
     @State private var topFlashCard: FlashCard? = nil
-    @State private var flashCardStack: [FlashCard] = []
     @State private var flashCardsAreInteractive: [Bool] = []
     @State private var flashCardsVertOffset: [CGFloat] = []
     @State private var flashCardsResults: [FlashCardResult] = []
