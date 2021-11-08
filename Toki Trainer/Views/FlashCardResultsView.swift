@@ -15,6 +15,7 @@ struct FlashCardResultsView: View {
     @ObservedObject var tokiDictionaryViewModel = TokiDictionaryViewModel()
 
     @State private var wordStatistics: [String: Double] = [:]
+    @State private var sortedWordStatistics: [(String, Double)] = []
     @State private var statistics = 0.0
     
     func calculateStatistics() {
@@ -23,7 +24,10 @@ struct FlashCardResultsView: View {
                 self.wordStatistics[answer.word!] = (Double(answer.correctCount) / Double(answer.triesCount)) * 100
             }
         }
-        print(wordStatistics)
+        let sortedStatistics = wordStatistics.sorted {
+            return $0.value > $1.value
+        }
+        self.sortedWordStatistics = sortedStatistics
     }
     
     func calculateBackgroundColor(_ percent: Double) -> Color {
@@ -39,13 +43,13 @@ struct FlashCardResultsView: View {
 
     
     var body: some View {
-        List(wordStatistics.sorted(by: <), id: \.key) { entry in
+        List(sortedWordStatistics, id: \.0) { entry in
             HStack {
-                Text(entry.key)
+                Text(entry.0)
                 Spacer()
-                Text("\(String(format: "%.2f", entry.value)) %")
+                Text("\(String(format: "%.2f", entry.1)) %")
             }
-            .listRowBackground(calculateBackgroundColor(entry.value))
+            .listRowBackground(calculateBackgroundColor(entry.1))
         }
         .onAppear {
             calculateStatistics()
