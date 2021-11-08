@@ -36,7 +36,8 @@ struct FlashCardView: View {
     
     func getDictionary() -> [TokiDictEntry] {
         if dictionary != nil {
-           return dictionary ?? []
+            dictionary?.shuffle()
+            return dictionary ?? []
         } else {
             return flashCardsViewModel.randomDictionary
         }
@@ -114,7 +115,7 @@ struct FlashCardStack: View {
             flashCardsVertOffset[currentFlashCard + 1] = 310
         }
         
-        flashCardsVertOffset[currentFlashCard] = 100
+        flashCardsVertOffset[currentFlashCard] = 50
         flashCardsAreInteractive[currentFlashCard] = true
     }
     
@@ -172,7 +173,7 @@ struct FlashCardStack: View {
         if(currentFlashCard > 0 ) {
             flashCardsVertOffset[currentFlashCard - 1] = -1000
         }
-        flashCardsVertOffset[currentFlashCard] = 100
+        flashCardsVertOffset[currentFlashCard] = 50
         flashCardsAreInteractive[currentFlashCard] = true
         
         self.fadeOutOverlay = true
