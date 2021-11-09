@@ -8,8 +8,14 @@
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="LessonAnswer" representedClassName="LessonAnswer" syncable="YES" codeGenerationType="class">
+        <attribute name="correctCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lesson" optional="YES" attributeType="String"/>
+        <attribute name="triesCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
         <element name="FlashCardAnswer" positionX="-54" positionY="0" width="128" height="74"/>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="LessonAnswer" positionX="-54" positionY="18" width="128" height="74"/>
     </elements>
 </model>

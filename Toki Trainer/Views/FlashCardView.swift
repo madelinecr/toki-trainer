@@ -18,30 +18,28 @@ struct FlashCardView: View {
     
     @ObservedObject var flashCardsViewModel = FlashCardsViewModel()
     
-    @State var dictionary: [TokiDictEntry]?
+    @State var currentLesson: String
+    @State var dictionary: [TokiDictEntry]
     
-    init(_ passedDictionary: [TokiDictEntry]?) {
-        if passedDictionary != nil {
-            if let safePassedDictionary = passedDictionary {
-                self.dictionary = safePassedDictionary
-            }
-        }
+    init(lesson: String, passedDictionary: [TokiDictEntry]) {
+        self.dictionary = passedDictionary
+        currentLesson = lesson
     }
     
     var body: some View {
         VStack {
-            FlashCardStack(dictionary: getDictionary())
+            FlashCardStack(currentLesson: currentLesson, dictionary: dictionary)
         }
     }
     
-    func getDictionary() -> [TokiDictEntry] {
-        if dictionary != nil {
-            dictionary?.shuffle()
-            return dictionary ?? []
-        } else {
-            return flashCardsViewModel.randomDictionary
-        }
-    }
+//    func getDictionary() -> [TokiDictEntry] {
+//        if dictionary != nil {
+//            dictionary?.shuffle()
+//            return dictionary ?? []
+//        } else {
+//            return flashCardsViewModel.randomDictionary
+//        }
+//    }
 }
 
 extension Binding {
@@ -59,7 +57,9 @@ struct FlashCardStack: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(fetchRequest: K.getFlashCardAnswersFetchRequest) var flashCardAnswers: FetchedResults<FlashCardAnswer>
+    @FetchRequest(fetchRequest: K.getLessonAnswersFetchRequest) var lessonAnswers: FetchedResults<LessonAnswer>
     
+    var currentLesson: String
     var dictionary: [TokiDictEntry]
     @State private var flashCards: [FlashCard] = []
     @State private var topFlashCard: FlashCard? = nil
@@ -135,6 +135,28 @@ struct FlashCardStack: View {
             }
         }
         
+        var lessonInDatabase = false
+        for lessonAnswer in lessonAnswers {
+            if lessonAnswer.lesson == currentLesson {
+                lessonInDatabase = true
+                lessonAnswer.setValue((lessonAnswer.triesCount + 1), forKey: "triesCount")
+                if correct {
+                    lessonAnswer.setValue((lessonAnswer.correctCount + 1), forKey: "correctCount")
+                }
+                print("lesson found in database")
+            }
+        }
+        
+        if lessonInDatabase == false {
+            let lessonAnswer = LessonAnswer(context: viewContext)
+            lessonAnswer.lesson = currentLesson
+            lessonAnswer.triesCount = 1
+            if correct {
+                lessonAnswer.correctCount = 1
+            }
+            print("lesson not found in database")
+        }
+        
         if cardInDatabase == false {
             let answer = FlashCardAnswer(context: viewContext)
             answer.word = dictionary[currentFlashCard].word
@@ -145,15 +167,6 @@ struct FlashCardStack: View {
             print("answer not found in database")
         }
         
-        //        for answer in flashCardAnswers {
-        //            if answer.word == dictionary[currentFlashCard].word {
-        //                flashCardAnswer.word = answer.word
-        //                flashCardAnswer.triesCount = answer.triesCount + 1
-        //                if correct {
-        //                    flashCardAnswer.correctCount = answer.correctCount + 1
-        //                }
-        //            }
-        //        }
         try? viewContext.save()
     }
     
@@ -169,23 +182,27 @@ struct FlashCardStack: View {
     }
     
     func nextFlashCard() {
-        currentFlashCard += 1
-        if(currentFlashCard > 0 ) {
-            flashCardsVertOffset[currentFlashCard - 1] = -1000
+        flashCardsVertOffset[currentFlashCard] = -1000
+        if currentFlashCard == (flashCards.count - 1) {
+            return
         }
+        currentFlashCard += 1
         flashCardsVertOffset[currentFlashCard] = 50
         flashCardsAreInteractive[currentFlashCard] = true
         
+        
         self.fadeOutOverlay = true
         
-        if flashCards.count - currentFlashCard >= 3 {
+        if ((flashCards.count - 1) - currentFlashCard) > 3 {
+            print("flashCards: \(flashCards.count)")
+            print("currentFlashCard: \(currentFlashCard)")
             flashCardsVertOffset[currentFlashCard + 1] = 310
             flashCardsVertOffset[currentFlashCard + 2] = 340
             flashCardsVertOffset[currentFlashCard + 3] = 370
-        } else if flashCards.count - currentFlashCard == 2 {
+        } else if (flashCards.count - 1) - currentFlashCard > 2 {
             flashCardsVertOffset[currentFlashCard + 1] = 310
             flashCardsVertOffset[currentFlashCard + 2] = 340
-        } else if flashCards.count - currentFlashCard == 1 {
+        } else if (flashCards.count - 1) - currentFlashCard > 1 {
             flashCardsVertOffset[currentFlashCard + 1] = 310
         }
     }
@@ -317,7 +334,9 @@ struct CardFlipModifier: AnimatableModifier {
 }
 
 struct FlashCardView_Previews: PreviewProvider {
+    static var viewModel = TokiDictionaryViewModel()
+    
     static var previews: some View {
-        FlashCardView(nil).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FlashCardView(lesson: "Preview", passedDictionary: viewModel.dictionary).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

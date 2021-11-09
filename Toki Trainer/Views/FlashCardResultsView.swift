@@ -16,7 +16,6 @@ struct FlashCardResultsView: View {
 
     @State private var wordStatistics: [String: Double] = [:]
     @State private var sortedWordStatistics: [(String, Double)] = []
-    @State private var statistics = 0.0
     
     func calculateStatistics() {
         for answer in answers {
@@ -38,7 +37,6 @@ struct FlashCardResultsView: View {
         } else {
             return Color.red
         }
-        
     }
 
     
@@ -54,13 +52,6 @@ struct FlashCardResultsView: View {
         .onAppear {
             calculateStatistics()
         }
-    }
-}
-
-extension Double {
-    func formatAsPercent(places: Int) -> String {
-        let formattedValue = String(format: "%.2f", self)
-        return formattedValue
     }
 }
 

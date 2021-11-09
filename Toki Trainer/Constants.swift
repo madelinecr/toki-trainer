@@ -39,4 +39,11 @@ struct K {
         
         return request
     }
+    
+    static var getLessonAnswersFetchRequest: NSFetchRequest<LessonAnswer> {
+        let request: NSFetchRequest<LessonAnswer> = LessonAnswer.fetchRequest()
+        request.sortDescriptors = []
+        
+        return request
+    }
 }
