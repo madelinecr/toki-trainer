@@ -74,7 +74,7 @@ struct FlashCardLessonsView: View {
                             calculateStatistics(lesson)
                         }
                     Spacer()
-                    if statisticsCalculated && lessonStatistics[lesson.lesson] != 0.0 && lessonStatistics[lesson.lesson] != nil {
+                    if statisticsCalculated && lessonStatistics[lesson.lesson] != nil {
                         Text("\(String(format: "%.0f", lessonStatistics[lesson.lesson]!)) %")
                             .multilineTextAlignment(.leading)
                     }

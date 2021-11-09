@@ -66,7 +66,8 @@ struct FlashCardStack: View {
     @State private var flashCardsAreInteractive: [Bool] = []
     @State private var flashCardsVertOffset: [CGFloat] = []
     @State private var flashCardsResults: [FlashCardResult] = []
-    @State private var fadeOutOverlay = false
+    @State private var helperFadeOutOverlay = false
+    @State private var deckCompleteFadeInOverlay = false
     
     @State private var currentFlashCard = 0
     
@@ -82,18 +83,18 @@ struct FlashCardStack: View {
                     }
                 }
             }
-            .overlay(HStack {
-                Image(systemName: "arrow.backward")
-                Text("Incorrect")
-                Spacer()
-                Text("Correct")
-                Image(systemName: "arrow.right")
-            }.opacity(fadeOutOverlay ? 0.0 : 1.0), alignment: .top)
+        }
+        .overlay(HStack {
+            Image(systemName: "arrow.backward")
+            Text("Incorrect")
+            Spacer()
+            Text("Correct")
+            Image(systemName: "arrow.right")
+        }.opacity(helperFadeOutOverlay ? 0.0 : 1.0), alignment: .top)
+        .onAppear {
+            initFlashCards()
         }
         Spacer()
-            .onAppear {
-                initFlashCards()
-            }
     }
     
     func initFlashCards() {
@@ -117,6 +118,17 @@ struct FlashCardStack: View {
         
         flashCardsVertOffset[currentFlashCard] = 50
         flashCardsAreInteractive[currentFlashCard] = true
+        
+        resetLessonAnswersCoreData()
+    }
+    
+    func resetLessonAnswersCoreData() {
+        for lessonAnswer in lessonAnswers {
+            if lessonAnswer.lesson == currentLesson {
+                viewContext.delete(lessonAnswer)
+            }
+        }
+        try? viewContext.save()
     }
     
     func setFlashCardAnswersCoreData(_ correct: Bool) {
@@ -191,7 +203,7 @@ struct FlashCardStack: View {
         flashCardsAreInteractive[currentFlashCard] = true
         
         
-        self.fadeOutOverlay = true
+        self.helperFadeOutOverlay = true
         
         if ((flashCards.count - 1) - currentFlashCard) > 3 {
             print("flashCards: \(flashCards.count)")
@@ -334,9 +346,9 @@ struct CardFlipModifier: AnimatableModifier {
 }
 
 struct FlashCardView_Previews: PreviewProvider {
-    static var viewModel = TokiDictionaryViewModel()
+    static var lessonVM = FlashCardLessonsViewModel()
     
     static var previews: some View {
-        FlashCardView(lesson: "Preview", passedDictionary: viewModel.dictionary).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FlashCardView(lesson: lessonVM.lessons[0].lesson, passedDictionary: lessonVM.lessons[0].words).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
