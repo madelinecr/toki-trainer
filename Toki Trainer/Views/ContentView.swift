@@ -84,6 +84,9 @@ struct TranslatorView: View {
             .sheet(item: $selectedPartOfSpeech) { selectedPOS in
                 PartsOfSpeechView(selectedPartOfSpeech: selectedPOS, partsOfSpeech: tokiDictViewModel.partsOfSpeech)
             }
+            .onChange(of: tokiInput) { newValue in
+                tokiDictViewModel.filterDictionary(newValue)
+            }
         }
     }
 }
