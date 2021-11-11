@@ -16,7 +16,6 @@
 		7E28111D273302860063DC78 /* toki-dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111B273302860063DC78 /* toki-dictionary.json */; };
 		7E28112227330DD30063DC78 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E28112127330DD20063DC78 /* Constants.swift */; };
 		7E716B3E273986E5009E2CF6 /* TokiLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B3D273986E5009E2CF6 /* TokiLesson.swift */; };
-		7E716B4027398ABD009E2CF6 /* toki-lessons.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E716B3F27398ABD009E2CF6 /* toki-lessons.json */; };
 		7E716B4227398CDF009E2CF6 /* FlashCardLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */; };
 		7E716B4427398D3D009E2CF6 /* FlashCardLessonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */; };
 		7E716B462739B968009E2CF6 /* FlashCardLessonResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B452739B968009E2CF6 /* FlashCardLessonResultsView.swift */; };
@@ -28,6 +27,7 @@
 		7E943A28273211C300E7DDF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E943A27273211C300E7DDF4 /* Preview Assets.xcassets */; };
 		7E943A2A273211C300E7DDF4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A29273211C300E7DDF4 /* Persistence.swift */; };
 		7E943A2D273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E943A2B273211C300E7DDF4 /* Toki_Trainer.xcdatamodeld */; };
+		7EBAE6AA273D65FD00BCFA09 /* toki-lessons.json in Resources */ = {isa = PBXBuildFile; fileRef = 7EBAE6A9273D65FD00BCFA09 /* toki-lessons.json */; };
 		7EF546162737B8FB00537AE6 /* FlashCardResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF546152737B8FA00537AE6 /* FlashCardResultsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +41,6 @@
 		7E28111B273302860063DC78 /* toki-dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-dictionary.json"; sourceTree = "<group>"; };
 		7E28112127330DD20063DC78 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7E716B3D273986E5009E2CF6 /* TokiLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokiLesson.swift; sourceTree = "<group>"; };
-		7E716B3F27398ABD009E2CF6 /* toki-lessons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "toki-lessons.json"; path = "../../../../../Desktop/toki-pona-dict-json/output/toki-lessons.json"; sourceTree = "<group>"; };
 		7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsView.swift; sourceTree = "<group>"; };
 		7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsViewModel.swift; sourceTree = "<group>"; };
 		7E716B452739B968009E2CF6 /* FlashCardLessonResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonResultsView.swift; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		7E943A27273211C300E7DDF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E943A29273211C300E7DDF4 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		7E943A2C273211C300E7DDF4 /* Toki_Trainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Toki_Trainer.xcdatamodel; sourceTree = "<group>"; };
+		7EBAE6A9273D65FD00BCFA09 /* toki-lessons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-lessons.json"; sourceTree = "<group>"; };
 		7EF546152737B8FA00537AE6 /* FlashCardResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				7E28111B273302860063DC78 /* toki-dictionary.json */,
-				7E716B3F27398ABD009E2CF6 /* toki-lessons.json */,
+				7EBAE6A9273D65FD00BCFA09 /* toki-lessons.json */,
 				7E28111A273302860063DC78 /* toki-partsofspeech.json */,
 			);
 			path = "JSON Data";
@@ -211,8 +211,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EBAE6AA273D65FD00BCFA09 /* toki-lessons.json in Resources */,
 				7E943A28273211C300E7DDF4 /* Preview Assets.xcassets in Resources */,
-				7E716B4027398ABD009E2CF6 /* toki-lessons.json in Resources */,
 				7E943A25273211C300E7DDF4 /* Assets.xcassets in Resources */,
 				7E28111D273302860063DC78 /* toki-dictionary.json in Resources */,
 				7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */,

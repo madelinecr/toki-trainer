@@ -67,7 +67,7 @@ struct FlashCardLessonsView: View {
     var body: some View {
         NavigationView {
             List(flashCardLessonsVM.lessons, id: \.lesson) { lesson in
-                NavigationLink(destination: FlashCardView(lesson: lesson.lesson, passedDictionary: lesson.words)) {
+                NavigationLink(destination: FlashCardView(lesson: lesson.lesson, passedDictionary: lesson.words.shuffled())) {
                     Text(lesson.lesson)
                         .bold()
                         .onAppear {

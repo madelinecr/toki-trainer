@@ -61,6 +61,7 @@ struct FlashCardStack: View {
     
     var currentLesson: String
     var dictionary: [TokiDictEntry]
+    @State private var shuffledDictionary: [TokiDictEntry] = []
     @State private var flashCards: [FlashCard] = []
     @State private var topFlashCard: FlashCard? = nil
     @State private var flashCardsAreInteractive: [Bool] = []
@@ -70,6 +71,11 @@ struct FlashCardStack: View {
     @State private var deckCompleteFadeInOverlay = false
     
     @State private var currentFlashCard = 0
+    
+    init(currentLesson: String, dictionary: [TokiDictEntry]) {
+        self.currentLesson = currentLesson
+        self.dictionary = dictionary
+    }
     
     var body: some View {
         VStack {
@@ -99,10 +105,12 @@ struct FlashCardStack: View {
     
     func initFlashCards() {
         flashCards = []
-        for index in dictionary.indices {
+        shuffledDictionary = dictionary
+        shuffledDictionary.shuffle()
+        for index in shuffledDictionary.indices {
             flashCardsAreInteractive.append(false)
             flashCardsResults.append(FlashCardResult.Unanswered)
-            flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(cardAnswerReceived), dictionaryEntry: dictionary[index]))
+            flashCards.append(FlashCard(isInteractive: $flashCardsAreInteractive[index], result: $flashCardsResults[index].onChange(cardAnswerReceived), dictionaryEntry: shuffledDictionary[index]))
             flashCardsVertOffset.append(370)
         }
         if flashCards.count - currentFlashCard >= 3 {
@@ -134,7 +142,7 @@ struct FlashCardStack: View {
     func setFlashCardAnswersCoreData(_ correct: Bool) {
         var cardInDatabase = false
         for answer in flashCardAnswers {
-            if answer.word == dictionary[currentFlashCard].word {
+            if answer.word == shuffledDictionary[currentFlashCard].word {
                 print("word in database: \(answer.word)")
                 print("tries: \(answer.triesCount)")
                 print("correct`: \(answer.correctCount)")
@@ -171,7 +179,7 @@ struct FlashCardStack: View {
         
         if cardInDatabase == false {
             let answer = FlashCardAnswer(context: viewContext)
-            answer.word = dictionary[currentFlashCard].word
+            answer.word = shuffledDictionary[currentFlashCard].word
             answer.triesCount = 1
             if correct {
                 answer.correctCount = 1

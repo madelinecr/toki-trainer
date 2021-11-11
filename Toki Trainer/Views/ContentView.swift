@@ -21,7 +21,7 @@ struct ContentView: View {
         TabView {
             TranslatorView()
                 .tabItem {
-                    Image(systemName: "pencil")
+                    Image(systemName: "message")
                     Text("Phrase Lookup")
                 }
             FlashCardLessonsView()
@@ -29,11 +29,11 @@ struct ContentView: View {
                     Image(systemName: "character.textbox")
                     Text("Flash Cards")
                 }
-            FlashCardResultsView()
-                .tabItem {
-                    Image(systemName: "number.circle")
-                    Text("Flash Card Results")
-                }
+//            FlashCardResultsView()
+//                .tabItem {
+//                    Image(systemName: "number.circle")
+//                    Text("Flash Card Results")
+//                }
         }
     }
     
