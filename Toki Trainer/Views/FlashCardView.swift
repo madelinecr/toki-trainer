@@ -21,6 +21,9 @@ struct FlashCardView: View {
     @State var currentLesson: String
     @State var dictionary: [TokiDictEntry]
     
+    @State private var resultsShown = false
+    @State private var results: [String: Bool] = [:]
+    
     init(lesson: String, passedDictionary: [TokiDictEntry]) {
         self.dictionary = passedDictionary
         currentLesson = lesson
@@ -28,18 +31,13 @@ struct FlashCardView: View {
     
     var body: some View {
         VStack {
-            FlashCardStack(currentLesson: currentLesson, dictionary: dictionary)
+            if !resultsShown {
+                FlashCardStack(currentLesson: currentLesson, dictionary: dictionary, resultsShown: $resultsShown, results: $results)
+            } else {
+                ResultsView(results: $results)
+            }
         }
     }
-    
-//    func getDictionary() -> [TokiDictEntry] {
-//        if dictionary != nil {
-//            dictionary?.shuffle()
-//            return dictionary ?? []
-//        } else {
-//            return flashCardsViewModel.randomDictionary
-//        }
-//    }
 }
 
 extension Binding {
@@ -50,6 +48,24 @@ extension Binding {
                 self.wrappedValue = newValue
                 handler()
             })
+    }
+}
+
+struct ResultsView: View {
+    
+    @Binding var results: [String: Bool]
+    
+    var body: some View {
+        VStack {
+            Text("Results")
+                .font(.title)
+            //ForEach(results.sorted(by: >), id: \.key) { key, value in
+            //ForEach(results.keys, id: \.self) { word in
+            List(Array(results.keys).sorted(by: <), id: \.self) { result in
+                Text(result)
+                    .listRowBackground(results[result]! ? Color.green : Color.red)
+            }
+        }
     }
 }
 
@@ -68,14 +84,12 @@ struct FlashCardStack: View {
     @State private var flashCardsVertOffset: [CGFloat] = []
     @State private var flashCardsResults: [FlashCardResult] = []
     @State private var helperFadeOutOverlay = false
-    @State private var deckCompleteFadeInOverlay = false
+    @State private var deckComplete = false
+    
+    @Binding var resultsShown: Bool
+    @Binding var results: [String: Bool]
     
     @State private var currentFlashCard = 0
-    
-    init(currentLesson: String, dictionary: [TokiDictEntry]) {
-        self.currentLesson = currentLesson
-        self.dictionary = dictionary
-    }
     
     var body: some View {
         VStack {
@@ -204,12 +218,15 @@ struct FlashCardStack: View {
     func nextFlashCard() {
         flashCardsVertOffset[currentFlashCard] = -1000
         if currentFlashCard == (flashCards.count - 1) {
+            for (index, card) in flashCards.enumerated() {
+                self.results[card.dictionaryEntry.word] = (flashCardsResults[index] == FlashCardResult.Correct) ? true : false
+            }
+            self.resultsShown = true
             return
         }
         currentFlashCard += 1
         flashCardsVertOffset[currentFlashCard] = 50
         flashCardsAreInteractive[currentFlashCard] = true
-        
         
         self.helperFadeOutOverlay = true
         
@@ -276,7 +293,7 @@ struct FlashCard: View {
         
         Text("")
             .modifier(CardFlipModifier(isFaceDown: isFaceDown, frontText: dictionaryEntry.word, backText: concatenateDefinitions()))
-            .frame(width: 0.8 * screen.width, height: 200)
+            .frame(width: 300, height: 200)
             .offset(x: isFaceDown ? -dragAmount : dragAmount, y: abs(dragAmount) / 10)
             .rotationEffect(.degrees(isFaceDown ? -(dragAmount / 50) : dragAmount / 50))
             .font(.title)

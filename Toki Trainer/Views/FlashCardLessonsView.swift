@@ -80,7 +80,10 @@ struct FlashCardLessonsView: View {
                     }
                 }
             }
+            Text("Please Select a Lesson")
+                .font(.title)
             .navigationBarTitle("Lessons")
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
@@ -88,5 +91,7 @@ struct FlashCardLessonsView: View {
 struct FlashCardLessonsView_Previews: PreviewProvider {
     static var previews: some View {
         FlashCardLessonsView()
+        FlashCardLessonsView()
+            .previewDevice(/*@START_MENU_TOKEN@*/"iPad Pro (9.7-inch)"/*@END_MENU_TOKEN@*/)
     }
 }
