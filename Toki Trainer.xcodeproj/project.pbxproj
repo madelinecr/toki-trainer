@@ -15,6 +15,19 @@
 		7E28111C273302860063DC78 /* toki-partsofspeech.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111A273302860063DC78 /* toki-partsofspeech.json */; };
 		7E28111D273302860063DC78 /* toki-dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111B273302860063DC78 /* toki-dictionary.json */; };
 		7E28112227330DD30063DC78 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E28112127330DD20063DC78 /* Constants.swift */; };
+		7E449775275AA0600016B6DC /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E449774275AA0600016B6DC /* WidgetKit.framework */; };
+		7E449777275AA0600016B6DC /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E449776275AA0600016B6DC /* SwiftUI.framework */; };
+		7E44977A275AA0600016B6DC /* Toki_Trainer_Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E449779275AA0600016B6DC /* Toki_Trainer_Widgets.swift */; };
+		7E44977D275AA0620016B6DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E44977C275AA0620016B6DC /* Assets.xcassets */; };
+		7E44977F275AA0620016B6DC /* Toki_Trainer_Widgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7E44977B275AA0600016B6DC /* Toki_Trainer_Widgets.intentdefinition */; };
+		7E449780275AA0620016B6DC /* Toki_Trainer_Widgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7E44977B275AA0600016B6DC /* Toki_Trainer_Widgets.intentdefinition */; };
+		7E449783275AA0620016B6DC /* Toki Trainer WidgetsExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7E449772275AA0600016B6DC /* Toki Trainer WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7E449788275ABF5C0016B6DC /* TokiJSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811152733027F0063DC78 /* TokiJSONLoader.swift */; };
+		7E449789275ABF5C0016B6DC /* TokiLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B3D273986E5009E2CF6 /* TokiLesson.swift */; };
+		7E44978A275ABF5C0016B6DC /* TokiPartOfSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811162733027F0063DC78 /* TokiPartOfSpeech.swift */; };
+		7E44978B275ABF5C0016B6DC /* TokiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2811142733027F0063DC78 /* TokiDictionary.swift */; };
+		7E44978C275ABF690016B6DC /* TokiDictionaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20D6002734466800D75B9A /* TokiDictionaryViewModel.swift */; };
+		7E44978D275AC4AE0016B6DC /* toki-dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7E28111B273302860063DC78 /* toki-dictionary.json */; };
 		7E716B3E273986E5009E2CF6 /* TokiLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B3D273986E5009E2CF6 /* TokiLesson.swift */; };
 		7E716B4227398CDF009E2CF6 /* FlashCardLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */; };
 		7E716B4427398D3D009E2CF6 /* FlashCardLessonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */; };
@@ -31,6 +44,30 @@
 		7EF546162737B8FB00537AE6 /* FlashCardResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF546152737B8FA00537AE6 /* FlashCardResultsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7E449781275AA0620016B6DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E943A15273211C200E7DDF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E449771275AA0600016B6DC;
+			remoteInfo = "Toki Trainer WidgetsExtension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7E449784275AA0620016B6DC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7E449783275AA0620016B6DC /* Toki Trainer WidgetsExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		7E20D5FE2733AFE700D75B9A /* PartsOfSpeechView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartsOfSpeechView.swift; sourceTree = "<group>"; };
 		7E20D6002734466800D75B9A /* TokiDictionaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokiDictionaryViewModel.swift; sourceTree = "<group>"; };
@@ -40,6 +77,14 @@
 		7E28111A273302860063DC78 /* toki-partsofspeech.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-partsofspeech.json"; sourceTree = "<group>"; };
 		7E28111B273302860063DC78 /* toki-dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "toki-dictionary.json"; sourceTree = "<group>"; };
 		7E28112127330DD20063DC78 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7E449772275AA0600016B6DC /* Toki Trainer WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Toki Trainer WidgetsExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E449774275AA0600016B6DC /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7E449776275AA0600016B6DC /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7E449779275AA0600016B6DC /* Toki_Trainer_Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toki_Trainer_Widgets.swift; sourceTree = "<group>"; };
+		7E44977B275AA0600016B6DC /* Toki_Trainer_Widgets.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Toki_Trainer_Widgets.intentdefinition; sourceTree = "<group>"; };
+		7E44977C275AA0620016B6DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7E44977E275AA0620016B6DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E44978E275C495E0016B6DC /* Toki Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Toki Trainer.entitlements"; sourceTree = "<group>"; };
 		7E716B3D273986E5009E2CF6 /* TokiLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokiLesson.swift; sourceTree = "<group>"; };
 		7E716B4127398CDF009E2CF6 /* FlashCardLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsView.swift; sourceTree = "<group>"; };
 		7E716B4327398D3D009E2CF6 /* FlashCardLessonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardLessonsViewModel.swift; sourceTree = "<group>"; };
@@ -58,6 +103,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7E44976F275AA0600016B6DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E449777275AA0600016B6DC /* SwiftUI.framework in Frameworks */,
+				7E449775275AA0600016B6DC /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E943A1A273211C200E7DDF4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,10 +167,32 @@
 			path = "JSON Data";
 			sourceTree = "<group>";
 		};
+		7E449773275AA0600016B6DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E449774275AA0600016B6DC /* WidgetKit.framework */,
+				7E449776275AA0600016B6DC /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E449778275AA0600016B6DC /* Toki Trainer Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				7E449779275AA0600016B6DC /* Toki_Trainer_Widgets.swift */,
+				7E44977B275AA0600016B6DC /* Toki_Trainer_Widgets.intentdefinition */,
+				7E44977C275AA0620016B6DC /* Assets.xcassets */,
+				7E44977E275AA0620016B6DC /* Info.plist */,
+			);
+			path = "Toki Trainer Widgets";
+			sourceTree = "<group>";
+		};
 		7E943A14273211C200E7DDF4 = {
 			isa = PBXGroup;
 			children = (
 				7E943A1F273211C200E7DDF4 /* Toki Trainer */,
+				7E449778275AA0600016B6DC /* Toki Trainer Widgets */,
+				7E449773275AA0600016B6DC /* Frameworks */,
 				7E943A1E273211C200E7DDF4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -125,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				7E943A1D273211C200E7DDF4 /* Toki Trainer.app */,
+				7E449772275AA0600016B6DC /* Toki Trainer WidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +209,7 @@
 		7E943A1F273211C200E7DDF4 /* Toki Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				7E44978E275C495E0016B6DC /* Toki Trainer.entitlements */,
 				7E28111E273302890063DC78 /* JSON Data */,
 				7E281113273302530063DC78 /* ViewModels */,
 				7E2811122733024F0063DC78 /* Views */,
@@ -156,6 +234,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7E449771275AA0600016B6DC /* Toki Trainer WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E449787275AA0620016B6DC /* Build configuration list for PBXNativeTarget "Toki Trainer WidgetsExtension" */;
+			buildPhases = (
+				7E44976E275AA0600016B6DC /* Sources */,
+				7E44976F275AA0600016B6DC /* Frameworks */,
+				7E449770275AA0600016B6DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Toki Trainer WidgetsExtension";
+			productName = "Toki Trainer WidgetsExtension";
+			productReference = 7E449772275AA0600016B6DC /* Toki Trainer WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7E943A1C273211C200E7DDF4 /* Toki Trainer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E943A30273211C300E7DDF4 /* Build configuration list for PBXNativeTarget "Toki Trainer" */;
@@ -163,10 +258,12 @@
 				7E943A19273211C200E7DDF4 /* Sources */,
 				7E943A1A273211C200E7DDF4 /* Frameworks */,
 				7E943A1B273211C200E7DDF4 /* Resources */,
+				7E449784275AA0620016B6DC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7E449782275AA0620016B6DC /* PBXTargetDependency */,
 			);
 			name = "Toki Trainer";
 			productName = "Toki Trainer";
@@ -183,6 +280,9 @@
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+					7E449771275AA0600016B6DC = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					7E943A1C273211C200E7DDF4 = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -202,11 +302,21 @@
 			projectRoot = "";
 			targets = (
 				7E943A1C273211C200E7DDF4 /* Toki Trainer */,
+				7E449771275AA0600016B6DC /* Toki Trainer WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7E449770275AA0600016B6DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E44978D275AC4AE0016B6DC /* toki-dictionary.json in Resources */,
+				7E44977D275AA0620016B6DC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E943A1B273211C200E7DDF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,6 +332,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7E44976E275AA0600016B6DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E44977A275AA0600016B6DC /* Toki_Trainer_Widgets.swift in Sources */,
+				7E44977F275AA0620016B6DC /* Toki_Trainer_Widgets.intentdefinition in Sources */,
+				7E449789275ABF5C0016B6DC /* TokiLesson.swift in Sources */,
+				7E449788275ABF5C0016B6DC /* TokiJSONLoader.swift in Sources */,
+				7E44978C275ABF690016B6DC /* TokiDictionaryViewModel.swift in Sources */,
+				7E44978B275ABF5C0016B6DC /* TokiDictionary.swift in Sources */,
+				7E44978A275ABF5C0016B6DC /* TokiPartOfSpeech.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E943A19273211C200E7DDF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +357,7 @@
 				7E20D6012734466800D75B9A /* TokiDictionaryViewModel.swift in Sources */,
 				7E716B4427398D3D009E2CF6 /* FlashCardLessonsViewModel.swift in Sources */,
 				7E2811192733027F0063DC78 /* TokiPartOfSpeech.swift in Sources */,
+				7E449780275AA0620016B6DC /* Toki_Trainer_Widgets.intentdefinition in Sources */,
 				7E943A23273211C200E7DDF4 /* ContentView.swift in Sources */,
 				7EF546162737B8FB00537AE6 /* FlashCardResultsView.swift in Sources */,
 				7E716B4227398CDF009E2CF6 /* FlashCardLessonsView.swift in Sources */,
@@ -248,7 +373,69 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7E449782275AA0620016B6DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E449771275AA0600016B6DC /* Toki Trainer WidgetsExtension */;
+			targetProxy = 7E449781275AA0620016B6DC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7E449785275AA0620016B6DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9ASV855X5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Toki Trainer Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Toki Trainer Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "info.maddie.Toki-Trainer.Toki-Trainer-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7E449786275AA0620016B6DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9ASV855X5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Toki Trainer Widgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Toki Trainer Widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "info.maddie.Toki-Trainer.Toki-Trainer-Widgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7E943A2E273211C300E7DDF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -368,8 +555,10 @@
 		7E943A31273211C300E7DDF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Toki Trainer/Toki Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Toki Trainer/Preview Content\"";
@@ -397,8 +586,10 @@
 		7E943A32273211C300E7DDF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Toki Trainer/Toki Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Toki Trainer/Preview Content\"";
@@ -426,6 +617,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7E449787275AA0620016B6DC /* Build configuration list for PBXNativeTarget "Toki Trainer WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E449785275AA0620016B6DC /* Debug */,
+				7E449786275AA0620016B6DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7E943A18273211C200E7DDF4 /* Build configuration list for PBXProject "Toki Trainer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
